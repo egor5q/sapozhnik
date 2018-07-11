@@ -44,7 +44,7 @@ def mats(m):
       chats.insert_one(createchat(m.chat.id))
    userss=[]
    for ids in chat['users']:
-      userss.append(ids['id'])
+      userss.append(chat['users'][ids]['id'])
    if m.from_user.id not in userss:
       print('2')
       chats.update_one({'id':m.chat.id}, {'$set':{'users.'+str(m.from_user.id):createuser(m.from_user.id, m.from_user.username, m.from_user.first_name)}})
