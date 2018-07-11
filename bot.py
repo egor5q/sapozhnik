@@ -40,8 +40,10 @@ def stats(m):
 def mats(m):
    chat=chats.find_one({'id':m.chat.id})
    if chat==None:
+      print('1')
       chats.insert_one(createchat(m.chat.id))
    if m.from_user.id not in chat['users']:
+      print('2')
       chats.update_one({'id':m.chat.id}, {'$set':{'users.'+str(m.from_user.id):createuser(m.from_user.id, m.from_user.username, m.from_user.first_name)}})
    chats.update_one({'id':m.chat.id}, {'$inc':{'users.'+str(m.from_user.id)+'.messages':1}})
    mat=['хуй', 'пизда', 'пидор', 'мудак', 'залупа', 'блядь', 'блять', 'хуе', 'хуя', 'манда', 'еблан', 'ебан', 'пидр','даун', 'бля']
