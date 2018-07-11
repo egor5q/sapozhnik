@@ -30,7 +30,7 @@ chats=db.chats
 def stats(m):
    x=chats.find_one({'id':m.from_user.id})
    if x!=None:
-         bot.send_message(m.chat.id, 'Статистика пользователя в данном чате:\nСообщения: '+str(x['users'][m.from_user.id]['messages'])+'\nМаты: '+str(x['users'][m.from_user.id]['mats']))
+         bot.send_message(m.chat.id, 'Статистика пользователя в данном чате:\nСообщения: '+str(x['users'][str(m.from_user.id)]['messages'])+'\nМаты: '+str(x['users'][str(m.from_user.id)]['mats']))
    else:
       bot.send_message(m.chat.id, 'Вы ещё не отправили ни одного сообщения!')
 
