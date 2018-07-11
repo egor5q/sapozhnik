@@ -38,6 +38,19 @@ def stats(m):
       bot.send_message(m.chat.id, 'Вы ещё не отправили ни одного сообщения!')
 
 
+@bot.message_handler(commands=['random'])
+def rand(m):
+   x=m.text.split(" ")
+   if len(x)==3:
+      try:
+         x1=int(x[1])
+         x2=int(x[2])
+         z=random.randint(x1, x2)
+         bot.send_message(m.chat.id, 'Выпавшее число: '+str(z))
+      except:
+         bot.send_message(m.chat.id, 'Используйте следующий формат:\n'+
+                          '*/random x y*\n*x* - от какого числа рандомить;\n*y* - до какого числа рандомить. Первое число должно быть меньше второго.', parse_mode='markdown')
+         
 
 @bot.message_handler(content_types=['text'])
 def mats(m):
