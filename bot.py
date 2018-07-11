@@ -30,7 +30,7 @@ def mats(m):
    if x==1:
       texts=['Не ругайся!','Плохо таким быть!', 'У нас здесь не матерятся!', 'Тут приличное общество, не ругайся.', 'Зачем материться?', 'Не надо так.']
       text=random.choice(texts)
-      bot.reply_to(m, text)
+      bot.reply_to(m.chat.id, m.message_id, text)
 
 
 
