@@ -30,7 +30,7 @@ def mats(m):
    if x==1:
       texts=['Не ругайся!','Плохо таким быть!', 'У нас здесь не матерятся!', 'Тут приличное общество, не ругайся.', 'Зачем материться?', 'Не надо так.']
       text=random.choice(texts)
-      bot.reply_to(m.chat.id, m.message_id, text)
+      bot.reply_to(m, text)
 
 
 
@@ -38,7 +38,6 @@ def mats(m):
 if True:
  try:
    print('7777')
-   bot.send_message(-1001208357368, 'Бот был перезагружен!')
    bot.polling(none_stop=True,timeout=600)
  except (requests.ReadTimeout):
         print('!!! READTIME OUT !!!')           
