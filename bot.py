@@ -25,6 +25,7 @@ client1=os.environ['database']
 client=MongoClient(client1)
 db=client.grouphelper
 users=db.users
+chats=db.chats
 
 @bot.message_handler(commands=['stat'])
 def stats(m):
