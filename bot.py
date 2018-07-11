@@ -26,14 +26,11 @@ client=MongoClient(client1)
 db=client.grouphelper
 chats=db.chats
 
-@bot.message_handler(commands=['stat'])
+@bot.message_handler(commands=['stats'])
 def stats(m):
    x=chats.find_one({'id':m.from_user.id})
    if x!=None:
-      try:
          bot.send_message(m.chat.id, 'Статистика пользователя в данном чате:\nСообщения: '+str(x['users'][m.from_user.id]['messages'])+'\nМаты: '+str(x['users'][m.from_user.id]['mats']))
-      except:
-         bot.send_message(m.chat.id, 'Вы еще не отправили в этот чат ни одного сообщения!')
    else:
       bot.send_message(m.chat.id, 'Вы ещё не отправили ни одного сообщения!')
 
