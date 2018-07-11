@@ -20,6 +20,12 @@ token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 
 
+
+client1=os.environ['database']
+client=MongoClient(client1)
+db=client.grouphelper
+users=db.users
+
 @bot.message_handler(content_types=['text'])
 def mats(m):
    mat=['хуй', 'пизда', 'пидор', 'мудак', 'залупа', 'блядь', 'блять', 'хуе', 'хуя', 'манда', 'еблан', 'ебан', 'пидр','даун', 'бля']
