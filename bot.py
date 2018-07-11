@@ -42,6 +42,7 @@ def mats(m):
    if chat==None:
       print('1')
       chats.insert_one(createchat(m.chat.id))
+   chat=chats.find_one({'id':m.chat.id})
    userss=[]
    for ids in chat['users']:
       userss.append(chat['users'][ids]['id'])
