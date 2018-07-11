@@ -50,7 +50,10 @@ def rand(m):
       except:
          bot.send_message(m.chat.id, 'Используйте следующий формат:\n'+
                           '*/random x y*\n*x* - от какого числа рандомить;\n*y* - до какого числа рандомить. Первое число должно быть меньше второго.', parse_mode='markdown')
-         
+   else:
+      bot.send_message(m.chat.id, 'Используйте следующий формат:\n'+
+                          '*/random x y*\n*x* - от какого числа рандомить;\n*y* - до какого числа рандомить. Первое число должно быть меньше второго.', parse_mode='markdown')
+      
 
 @bot.message_handler(content_types=['text'])
 def mats(m):
