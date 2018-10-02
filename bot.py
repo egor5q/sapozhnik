@@ -29,12 +29,12 @@ psw=db.passwords
 
 @bot.message_handler(commands=['newpass'])
 def newpass(m):
-   if m.from_user.id==m.chat.id:
+   if m.from_user.id==m.chat.id:    
       if m.chat.id==60727377 or m.chat.id==441399484:
          x=m.text.split('/newpass ')
          if len(x)==2:
             psw.insert_one(createpass(x[1]))
-            bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: '+str(z))
+            bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: ')
 
 @bot.message_handler(commands=['login'])
 def login(m):
