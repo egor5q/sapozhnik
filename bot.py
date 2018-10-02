@@ -116,7 +116,7 @@ def buyy(m):
            else:
                bot.send_message(m.chat.id, 'У вас уже куплена эта подсказка!')
          except:
-            pass
+            bot.send_message(m.chat.id, 'Какая-то ошибка. Скорее всего, номер подсказки указан неверно (всего подсказок: 12)')
    else:
     bot.send_message(m.chat.id, 'Вы не состоите ни в одной команде!')
   
