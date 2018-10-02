@@ -53,11 +53,20 @@ def newpass(m):
                if ids['password']==x[1]:
                   no=1
             if no==0:
+               h=0
+               for ids in z:
+                  h+=1
                psw.insert_one(createpass(x[1]))
-               bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: ')
+               bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: '+str(h))
             else:
                bot.send_message(m.chat.id, 'Такой пароль уже существует!')
 
+               
+@bot.message_handler(commands=['allpass'])
+def allpass(m):
+   
+               
+               
 @bot.message_handler(commands=['login'])
 def login(m):
    x=m.text.split('/login ')
