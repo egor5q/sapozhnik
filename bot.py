@@ -50,7 +50,7 @@ def login(m):
          psw.update_one({'password':pw},{'$push':{'ids':m.from_user.id}})
          bot.send_message(m.chat.id, 'Вы успешно вошли в аккаунт!')
 
-@bot.message_handler(commands=['boughttips'])
+@bot.message_handler(commands=['alltips'])
 def boughtt(m):
    x=psw.find({})
    team=None
