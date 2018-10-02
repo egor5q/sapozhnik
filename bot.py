@@ -34,9 +34,12 @@ def newpass(m):
          x=m.text.split('/newpass ')
          if len(x)==2:
             psw.insert_one(createpass(x[1]))
+            bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: '+str(z)
 
 def createpass(p):
-   return {'password':p}
+   return {'password':p,
+          'ids':[],
+          'points':0}
   
 
 if True:
