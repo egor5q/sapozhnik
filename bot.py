@@ -26,7 +26,7 @@ client=MongoClient(client1)
 db=client.minersimulator
 psw=db.users
 
-psw.update_many({},{'set':{)
+psw.remove({})
 
 @bot.message_handler(commands=['newpass'])
 def newpass(m):
