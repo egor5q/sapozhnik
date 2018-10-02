@@ -39,7 +39,8 @@ def newpass(m):
 def createpass(p):
    return {'password':p,
           'ids':[],
-          'points':0}
+          'points':0,
+          'boughted':[]}
   
 
 if True:
