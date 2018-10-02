@@ -50,7 +50,23 @@ def login(m):
          psw.update_one({'password':pw},{'$push':{'ids':m.from_user.id}})
          bot.send_message(m.chat.id, 'Вы успешно вошли в аккаунт!')
 
-            
+@bot.message_handler(commands=['boughttips'])
+def boughtt(m):
+   x=psw.find({})
+   team=None
+   for ids in x:
+      if m.from_user.id in ids['ids']:
+         team=ids
+   if team!=None:
+      z=0
+      for ids in team['tips']:
+         z+=1
+         text+='('+str(z)+'): '+ids+'\n\n'
+      bot.send_message(m.chat.id, text)
+         
+              
+   
+   
             
 @bot.message_handler(commands=['start'])
 def start(m):
@@ -70,7 +86,7 @@ def createpass(p):
    return {'password':p,
           'ids':[],
           'points':0,
-          'boughted':[]
+          'tips':[]
           } 
 
 helplist={
