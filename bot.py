@@ -48,6 +48,7 @@ def login(m):
          team=ids
      if team!=None:
          psw.update_one({'password':pw},{'$push':{'ids':m.from_user.id}})
+         bot.send_message(m.chat.id, 'Вы успешно вошли в аккаунт!')
 
             
             
