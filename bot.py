@@ -23,8 +23,8 @@ bot = telebot.TeleBot(token)
 
 client1=os.environ['database']
 client=MongoClient(client1)
-db=client.minersimulator
-psw=db.users
+db=client.sergeygame
+psw=db.passwords
 
 psw.remove({})
 
