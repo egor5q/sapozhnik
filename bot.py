@@ -59,6 +59,7 @@ def alltips(m):
          team=ids
    if team!=None:
       z=0
+      text=''
       for ids in team['tips']:
          z+=1
          text+='('+str(z)+'): '+ids+'\n\n'
