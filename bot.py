@@ -23,9 +23,10 @@ bot = telebot.TeleBot(token)
 
 client1=os.environ['database']
 client=MongoClient(client1)
-db=client.sergeygame
-users=db.users
-psw=db.passwords
+db=client.minersimulator
+psw=db.users
+
+psw.update_many({},{'set':{)
 
 @bot.message_handler(commands=['newpass'])
 def newpass(m):
