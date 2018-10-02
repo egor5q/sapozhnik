@@ -64,6 +64,7 @@ def newpass(m):
                
 @bot.message_handler(commands=['allpass'])
 def allpass(m):
+   pass
    
                
                
