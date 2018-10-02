@@ -26,7 +26,6 @@ client=MongoClient(client1)
 db=client.sergeygame
 psw=db.passwords
 
-psw.remove({})
 
 @bot.message_handler(commands=['newpass'])
 def newpass(m):
