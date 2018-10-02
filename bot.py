@@ -51,7 +51,7 @@ def login(m):
          bot.send_message(m.chat.id, 'Вы успешно вошли в аккаунт!')
 
 @bot.message_handler(commands=['alltips'])
-def boughtt(m):
+def alltips(m):
    x=psw.find({})
    team=None
    for ids in x:
@@ -64,8 +64,22 @@ def boughtt(m):
          text+='('+str(z)+'): '+ids+'\n\n'
       bot.send_message(m.chat.id, text)
          
-              
-   
+@bot.message_handler(commands=['buy'])
+def buyy(m):
+   x=psw.find({})
+   team=None
+   for ids in x:
+      if m.from_user.id in ids['ids']:
+         team=ids
+   if team!=None:
+      x=m.text.split('/buy ')
+      if len(x)==2:
+         try:
+           h=int(x[1])
+           
+         except:
+            pass
+  
    
             
 @bot.message_handler(commands=['start'])
