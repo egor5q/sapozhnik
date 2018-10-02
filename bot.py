@@ -26,6 +26,20 @@ client=MongoClient(client1)
 db=client.sergeygame
 psw=db.passwords
 
+tips=['0',
+os.environ['tip1'],
+os.environ['tip2'],
+os.environ['tip3'],
+os.environ['tip4'],
+os.environ['tip5'],
+os.environ['tip6'],
+os.environ['tip7'],
+os.environ['tip8'],
+os.environ['tip9'],
+os.environ['tip10'],
+os.environ['tip11'],
+os.environ['tip12']
+]
 
 @bot.message_handler(commands=['newpass'])
 def newpass(m):
@@ -33,8 +47,16 @@ def newpass(m):
       if m.chat.id==60727377 or m.chat.id==441399484:
          x=m.text.split('/newpass ')
          if len(x)==2:
-            psw.insert_one(createpass(x[1]))
-            bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: ')
+            z=psw.find({})
+            no=0
+            for ids in z:
+               if ids['password']==x[1]:
+                  no=1
+            if no==0:
+               psw.insert_one(createpass(x[1]))
+               bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: ')
+            else:
+               bot.send_message(m.chat.id, 'Такой пароль уже существует!')
 
 @bot.message_handler(commands=['login'])
 def login(m):
@@ -43,12 +65,22 @@ def login(m):
      pw=x[1]
      x=psw.find({})
      team=None
+     no=0
      for ids in x:
-      if ids['password']==pw:
-         team=ids
-     if team!=None:
-         psw.update_one({'password':pw},{'$push':{'ids':m.from_user.id}})
-         bot.send_message(m.chat.id, 'Вы успешно вошли в аккаунт!')
+         if m.from_user.id in ids['ids']:
+            no=1
+     if no==0:
+         for ids in x:
+         if ids['password']==pw:
+            team=ids
+         if team!=None:
+            psw.update_one({'password':pw},{'$push':{'ids':m.from_user.id}})
+            bot.send_message(m.chat.id, 'Вы успешно вошли в аккаунт!')
+         else:
+            bot.send_message(m.chat.id, 'Такого пароля не существует!')
+     else:
+         bot.send_message(m.chat.id, 'Вы уже состоите в одной команде!')
+     
 
 @bot.message_handler(commands=['alltips'])
 def alltips(m):
@@ -77,9 +109,16 @@ def buyy(m):
       if len(x)==2:
          try:
            h=int(x[1])
-           
+           tip=tips[h]
+           if tip not in team['tips']:
+               bot.send_message(m.chat.id, tip)
+               psw.update_one({'password':team['password']},{'$push':{'tips':tip}})
+           else:
+               bot.send_message(m.chat.id, 'У вас уже куплена эта подсказка!')
          except:
             pass
+   else:
+    bot.send_message(m.chat.id, 'Вы не состоите ни в одной команде!')
   
    
             
