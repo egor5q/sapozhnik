@@ -78,6 +78,7 @@ def login(m):
          if m.from_user.id in ids['ids']:
             no=1
      if no==0:
+         x=psw.find({})
          for idss in x:
            print('ids2')
            if idss['password']==pw:
