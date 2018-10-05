@@ -121,7 +121,7 @@ def buyy(m):
    if team!=None:
       x=m.text.split('/buy ')
       if len(x)==2:
-         try:
+         #try:
            h=int(x[1])
            tip=tips[h]
            if tip not in team['tips']:
@@ -137,8 +137,8 @@ def buyy(m):
                bot.send_message(m.chat.id, 'Недостаточно очков!')
            else:
                bot.send_message(m.chat.id, 'У вас уже куплена эта подсказка!')
-         except:
-            bot.send_message(m.chat.id, 'Какая-то ошибка. Скорее всего, номер подсказки указан неверно (всего подсказок: 20)')
+        # except:
+           # bot.send_message(m.chat.id, 'Какая-то ошибка. Скорее всего, номер подсказки указан неверно (всего подсказок: 20)')
    else:
     bot.send_message(m.chat.id, 'Вы не состоите ни в одной команде!')
   
