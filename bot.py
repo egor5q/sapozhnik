@@ -129,9 +129,10 @@ def buyy(m):
                cost=5
              else:
                cost=200
-             if g['points']>=cost:
-               psw.update_one({'password':g['password']},{'$inc':{'points':cost}})
-               bot.send_message(m.chat.id, tip+'\n\nОставшиеся очки: '+str(g['points']-cost))
+             
+             if team['points']>=cost:
+               psw.update_one({'password':team['password']},{'$inc':{'points':cost}})
+               bot.send_message(m.chat.id, tip+'\n\nОставшиеся очки: '+str(team['points']-cost))
                psw.update_one({'password':team['password']},{'$push':{'tips':tip}})
              else:
                bot.send_message(m.chat.id, 'Недостаточно очков!')
