@@ -57,8 +57,12 @@ def newpass(m):
                
 @bot.message_handler(commands=['allpass'])
 def allpass(m):
-   pass
-   
+   if m.chat.id==60727377 or m.chat.id==441399484:
+      x=psw.find({})
+      text='Все пароли:\n'
+      for ids in x:
+         text+='`'+ids['password']+'`\n'
+      bot.send_message(m.chat.id, text, parse_mode='markdown')
                
                
 @bot.message_handler(commands=['login'])
@@ -85,6 +89,8 @@ def login(m):
          bot.send_message(m.chat.id, 'Вы уже состоите в одной команде!')
      
 
+
+   
 @bot.message_handler(commands=['alltips'])
 def alltips(m):
    x=psw.find({})
