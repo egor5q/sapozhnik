@@ -123,8 +123,11 @@ def buyy(m):
       if len(x)==2:
          try:
            h=int(x[1])
-           tip=tips[h]
-           if tip not in team['tips']:
+           if h==0:
+               bot.send_message(m.chat.id,'Вы нашли секретную подсказку!')
+           else:
+            tip=tips[h]
+            if tip not in team['tips']:
              if h!=20:
                cost=5
              else:
@@ -135,7 +138,7 @@ def buyy(m):
                psw.update_one({'password':team['password']},{'$push':{'tips':tip}})
              else:
                bot.send_message(m.chat.id, 'Недостаточно очков! Требуется: '+str(cost)+'\nУ вас имеется: '+str(team['points']))
-           else:
+            else:
                bot.send_message(m.chat.id, 'У вас уже куплена эта подсказка!')
          except:
             bot.send_message(m.chat.id, 'Какая-то ошибка. Скорее всего, номер подсказки указан неверно (всего подсказок: 20)')
