@@ -47,6 +47,7 @@ def newpass(m):
                   no=1
             if no==0:
                h=0
+               z=psw.find({})
                for idss in z:
                   h+=1
                psw.insert_one(createpass(x[1]))
