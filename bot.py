@@ -27,9 +27,9 @@ db=client.sergeygame
 psw=db.passwords
 
 
-codes=[]
-i=0
-while i<20:
+codes=['0']
+i=1
+while i<21:
    codes.append(os.environ['code'+str(i)])
    i+=1
 
