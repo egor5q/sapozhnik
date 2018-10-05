@@ -102,9 +102,9 @@ def alltips(m):
          
 @bot.message_handler(commands=['buy'])
 def buyy(m):
-   x=psw.find({})
+   g=psw.find({})
    team=None
-   for ids in x:
+   for ids in g:
       if m.from_user.id in ids['ids']:
          team=ids
    if team!=None:
@@ -114,12 +114,20 @@ def buyy(m):
            h=int(x[1])
            tip=tips[h]
            if tip not in team['tips']:
-               bot.send_message(m.chat.id, tip)
+             if h!=20:
+               cost=5
+             else:
+               cost=200
+             if g['points']>=cost:
+               psw.update_one({'password':g['password']},{'$inc':{'points':cost}})
+               bot.send_message(m.chat.id, tip+'\n\nОставшиеся очки: '+str(g['points']-cost))
                psw.update_one({'password':team['password']},{'$push':{'tips':tip}})
+             else:
+               bot.send_message(m.chat.id, 'Недостаточно очков!')
            else:
                bot.send_message(m.chat.id, 'У вас уже куплена эта подсказка!')
          except:
-            bot.send_message(m.chat.id, 'Какая-то ошибка. Скорее всего, номер подсказки указан неверно (всего подсказок: 12)')
+            bot.send_message(m.chat.id, 'Какая-то ошибка. Скорее всего, номер подсказки указан неверно (всего подсказок: 20)')
    else:
     bot.send_message(m.chat.id, 'Вы не состоите ни в одной команде!')
   
