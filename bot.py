@@ -47,7 +47,7 @@ def newpass(m):
                   no=1
             if no==0:
                h=0
-               for ids in z:
+               for idss in z:
                   h+=1
                psw.insert_one(createpass(x[1]))
                bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: '+str(h+1))
