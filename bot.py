@@ -26,20 +26,13 @@ client=MongoClient(client1)
 db=client.sergeygame
 psw=db.passwords
 
-tips=['0',
-os.environ['tip1'],
-os.environ['tip2'],
-os.environ['tip3'],
-os.environ['tip4'],
-os.environ['tip5'],
-os.environ['tip6'],
-os.environ['tip7'],
-os.environ['tip8'],
-os.environ['tip9'],
-os.environ['tip10'],
-os.environ['tip11'],
-os.environ['tip12']
-]
+
+
+tips=['0']
+i=1
+while i<21:
+   tips.append(os.environ['tip'+str(i)])
+   i+=1
 
 @bot.message_handler(commands=['newpass'])
 def newpass(m):
