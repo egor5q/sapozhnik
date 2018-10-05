@@ -130,7 +130,7 @@ def buyy(m):
              else:
                cost=200         
              if team['points']>=cost:
-               psw.update_one({'password':team['password']},{'$inc':{'points':cost}})
+               psw.update_one({'password':team['password']},{'$inc':{'points':-cost}})
                bot.send_message(m.chat.id, tip+'\n\nОставшиеся очки: '+str(team['points']-cost))
                psw.update_one({'password':team['password']},{'$push':{'tips':tip}})
              else:
