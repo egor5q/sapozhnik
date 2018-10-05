@@ -27,6 +27,12 @@ db=client.sergeygame
 psw=db.passwords
 
 
+codes=[]
+i=0
+while i<20:
+   codes.append(os.environ['code'+str(i)])
+   i+=1
+
 
 tips=['0']
 i=1
@@ -55,7 +61,23 @@ def newpass(m):
             else:
                bot.send_message(m.chat.id, 'Такой пароль уже существует!')
 
-               
+@bot.message_handler(commands=['code'])
+def codee(m):
+   x=m.text.split('/code ')
+   if len(x)==2:
+     pw=x[1]
+     x=psw.find({})
+     team=None
+     no=0
+     for ids in x:
+         print('ids')
+         if m.from_user.id in ids['ids']:
+            team=ids
+            no=1
+     if no==1:
+        
+      
+      
 @bot.message_handler(commands=['allpass'])
 def allpass(m):
    if m.chat.id==60727377 or m.chat.id==441399484:
