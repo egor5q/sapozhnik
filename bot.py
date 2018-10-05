@@ -74,10 +74,12 @@ def login(m):
      team=None
      no=0
      for ids in x:
+         print('ids')
          if m.from_user.id in ids['ids']:
             no=1
      if no==0:
          for idss in x:
+            print('ids2')
            if idss['password']==pw:
              team=1
              print('yess')
