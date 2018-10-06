@@ -23,183 +23,64 @@ bot = telebot.TeleBot(token)
 
 client1=os.environ['database']
 client=MongoClient(client1)
-db=client.sergeygame
-psw=db.passwords
+db=client.sapozhnik
+users=db.users
+texts=db.texts
 
 
-codes=['0']
-i=1
-while i<21:
-   codes.append(os.environ['code'+str(i)])
-   i+=1
+texts=['Чо тебе блять сказать? Иди нахуй!','Залупа','Хуй моржовый', 'Пизда блять', 'Хуй соси','Блять',
+      'Сука ебал рот блять','Ты долбоеб или как?','Ебло','Сука']
 
+for ids in texts:
+    texts.update_one({'texts':'mat'},{'$push':{'textlist':ids}})
 
-tips=['0']
-i=1
-while i<21:
-   tips.append(os.environ['tip'+str(i)])
-   i+=1
-
-@bot.message_handler(commands=['newpass'])
-def newpass(m):
-   if m.from_user.id==m.chat.id:    
-      if m.chat.id==60727377 or m.chat.id==441399484:
-         x=m.text.split('/newpass ')
-         if len(x)==2:
-            z=psw.find({})
-            no=0
-            for ids in z:
-               if ids['password']==x[1]:
-                  no=1
-            if no==0:
-               h=0
-               z=psw.find({})
-               for idss in z:
-                  h+=1
-               psw.insert_one(createpass(x[1]))
-               bot.send_message(m.chat.id, 'Пароль "'+x[1]+'" успешно создан! Всего паролей: '+str(h+1))
-            else:
-               bot.send_message(m.chat.id, 'Такой пароль уже существует!')
-
-@bot.message_handler(commands=['code'])
-def codee(m):
-   x=m.text.split('/code ')
-   if len(x)==2:
-     pw=x[1]
-     x=psw.find({})
-     team=None
-     no=0
-     for ids in x:
-         print('ids')
-         if m.from_user.id in ids['ids']:
-            team=ids
-            no=1
-     if no==1:
-        
-      
-      
-@bot.message_handler(commands=['allpass'])
-def allpass(m):
-   if m.chat.id==60727377 or m.chat.id==441399484:
-      x=psw.find({})
-      text='Все пароли:\n'
-      for ids in x:
-         text+='`'+ids['password']+'`\n'
-      bot.send_message(m.chat.id, text, parse_mode='markdown')
-               
-               
-@bot.message_handler(commands=['login'])
-def login(m):
-   x=m.text.split('/login ')
-   if len(x)==2:
-     pw=x[1]
-     x=psw.find({})
-     team=None
-     no=0
-     for ids in x:
-         print('ids')
-         if m.from_user.id in ids['ids']:
-            no=1
-     if no==0:
-         x=psw.find({})
-         for idss in x:
-           print('ids2')
-           if idss['password']==pw:
-             team=1
-             print('yess')
-         if team!=None:
-            psw.update_one({'password':pw},{'$push':{'ids':m.from_user.id}})
-            bot.send_message(m.chat.id, 'Вы успешно вошли в аккаунт!')
-         else:
-            bot.send_message(m.chat.id, 'Такого пароля не существует!')
-     else:
-         bot.send_message(m.chat.id, 'Вы уже состоите в одной команде!')
-     
-
-
-   
-@bot.message_handler(commands=['alltips'])
-def alltips(m):
-   x=psw.find({})
-   team=None
-   for ids in x:
-      if m.from_user.id in ids['ids']:
-         team=ids
-   if team!=None:
-      z=0
-      text=''
-      for ids in team['tips']:
-         z+=1
-         text+='('+str(z)+'): '+ids+'\n\n'
-      bot.send_message(m.chat.id, text)
-         
-@bot.message_handler(commands=['buy'])
-def buyy(m):
-   g=psw.find({})
-   team=None
-   for ids in g:
-      if m.from_user.id in ids['ids']:
-         team=ids
-   if team!=None:
-      x=m.text.split('/buy ')
-      if len(x)==2:
-         try:
-           h=int(x[1])
-           if h==0:
-               bot.send_message(m.chat.id,'Вы нашли секретную подсказку!')
-           else:
-            tip=tips[h]
-            if tip not in team['tips']:
-             if h!=20:
-               cost=5
-             else:
-               cost=200         
-             if team['points']>=cost:
-               psw.update_one({'password':team['password']},{'$inc':{'points':-cost}})
-               bot.send_message(m.chat.id, tip+'\n\nОставшиеся очки: '+str(team['points']-cost))
-               psw.update_one({'password':team['password']},{'$push':{'tips':tip}})
-             else:
-               bot.send_message(m.chat.id, 'Недостаточно очков! Требуется: '+str(cost)+'\nУ вас имеется: '+str(team['points']))
-            else:
-               bot.send_message(m.chat.id, 'У вас уже куплена эта подсказка!')
-         except:
-            bot.send_message(m.chat.id, 'Какая-то ошибка. Скорее всего, номер подсказки указан неверно (всего подсказок: 20)')
-   else:
-    bot.send_message(m.chat.id, 'Вы не состоите ни в одной команде!')
-  
-   
+       
+    
+@bot.message_handler(commands=['addword'])
+def addword(m):
+    if m.from_user.id==631027757 or m.from_user.id==441399484:
+        x=m.text.split('/addword ')
+        x=x[1]
+        if x!='':
+            texts.update_one({'texts':'mat'},{'$push':{'textlist':x}})
+            bot.send_message(m.chat.id, 'Успешно добавлена новая фраза:\n*'+x+'*', parse_mode='markdown')
+    else:
+        bot.send_message(m.chat.id, 'Ты не мой администратор!')
+    
+    
+@bot.message_handler(commands=['delword'])
+def delword(m):
+    if m.from_user.id==631027757 or m.from_user.id==441399484:
+        x=m.text.split('/delword ')
+        x=x[1]
+        if x!='':
+            try:
+                texts.update_one({'texts':'mat'},{'$pull':{'textlist':x}})
+                bot.send_message(m.chat.id, 'Успешно удалена фраза:\n*'+x+'*', parse_mode='markdown')
+            except:
+                bot.send_message(m.chat.id, 'Такой фразы не существует!')
+    else:
+        bot.send_message(m.chat.id, 'Ты не мой администратор!')
+       
+@bot.message_handler()
+def handlerr(m):
+    text=texts.find_one({'texts':'mat'})   
+    if len(text['textlist'])>0:
+      if 'сапожник' in m.text.lower():
+        if 'скажи' in m.text.lower():
+            bot.send_chat_action(m.chat.id, 'typing')
+            t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(text['textlist'])])
+            t.start()
+    else:
+        bot.send_message(m.chat.id, 'Да вы охуели! Удалили у меня все фразы, хуй знает теперь, как отвечать...')
             
-@bot.message_handler(commands=['start'])
-def start(m):
- if m.chat.id==m.from_user.id:
-   x=psw.find({})
-   yes=0
-   for ids in x:
-      if m.from_user.id in ids['ids']:
-         yes=1
-   if yes==0:
-      bot.send_message(m.chat.id,'Для авторизации введите следующий текст:\n'+
-                       '/login *пароль*\nГде *пароль* - выданный вашей команде пароль.')
-  
-                             
-                             
-def createpass(p):
-   return {'password':p,
-          'ids':[],
-          'points':0,
-          'tips':[]
-          } 
+            
+            
 
-helplist={
-   1:'',
-   2:'',
-   3:'',
-   4:'',
-   5:''
-   }
-                             
-                             
-
+def sendm(id, text):
+    bot.send_message(id,text)
+            
+            
 if True:
    print('7777')
    bot.polling(none_stop=True,timeout=600)
