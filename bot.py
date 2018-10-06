@@ -31,6 +31,9 @@ texts=db.texts
 texts=['Чо тебе блять сказать? Иди нахуй!','Залупа','Хуй моржовый', 'Пизда блять', 'Хуй соси','Блять',
       'Сука ебал рот блять','Ты долбоеб или как?','Ебло','Сука']
 
+
+tex=['Чё надо?','Что "Сапожник"? Нахуй идите!']
+
 for ids in texts:
     texts.update_one({'texts':'mat'},{'$push':{'textlist':ids}})
 
@@ -71,6 +74,8 @@ def handlerr(m):
             bot.send_chat_action(m.chat.id, 'typing')
             t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(text['textlist'])])
             t.start()
+        else:
+            bot.send_message(m.chat.id, random.choice(tex))
     else:
         bot.send_message(m.chat.id, 'Да вы охуели! Удалили у меня все фразы, хуй знает теперь, как отвечать...')
             
