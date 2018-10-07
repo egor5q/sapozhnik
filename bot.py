@@ -88,6 +88,7 @@ def delword(m):
     
 @bot.message_handler()
 def handlerr(m):
+  if m.forward_from==None:
     bot.send_message(441399484,'Имя юзера: '+ m.from_user.first_name+'\nТекст сообщения: '+m.text+'\n'+
                      'Айди чата: '+str(m.chat.id))
     txtotalk=textstotalk.find_one({'texts':'mat'})
