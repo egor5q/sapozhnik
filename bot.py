@@ -124,7 +124,7 @@ def handlerr(m):
                     no=1
               if no==0:
                   textstotalk.update_one({'texts':'mat'},{'$push':{'textlist':m.text}})
-                  bot.send_message(441399484,'В список фраз для общения добавлена новая фраза:\n'+m.text)
+                  bot.send_message(441399484,'В список фраз для общения добавлена новая фраза:\n'+m.text+'\n\n#newwords')
                 
             
     else:
