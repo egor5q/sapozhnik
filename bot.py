@@ -75,10 +75,15 @@ def handlerr(m):
             t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(text['textlist'])])
             t.start()
         else:
-            bot.send_message(m.chat.id, random.choice(tex))
-    else:
-        bot.send_message(m.chat.id, 'Да вы охуели! Удалили у меня все фразы, хуй знает теперь, как отвечать...')
+            bot.send_chat_action(m.chat.id, 'typing')
+            t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(tex)])
+            t.start()    
             
+    else:
+       bot.send_chat_action(m.chat.id, 'typing')
+       t=threading.Timer(3, sendm, args=[m.chat.id,'Да вы охуели! Удалили у меня все фразы, хуй знает теперь, как отвечать...'])
+       t.start()
+      
             
             
 
