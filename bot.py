@@ -26,7 +26,7 @@ client=MongoClient(client1)
 db=client.sapozhnik
 users=db.users
 texts=db.texts
-
+textstotalk=db.textstotalk
 
 #textss=['Чо тебе блять сказать? Иди нахуй!','Залупа','Хуй моржовый', 'Пизда блять', 'Хуй соси','Блять',
 #      'Сука ебал рот блять','Ты долбоеб или как?','Ебло','Сука']
@@ -69,6 +69,7 @@ def delword(m):
 def handlerr(m):
     bot.send_message(441399484,'Имя юзера: '+ m.from_user.first_name+'\nТекст сообщения: '+m.text+'\n'+
                      'Айди чата: '+str(m.chat.id))
+    txtotalk=textstotalk.find_one({'texts':'mat'})
     text=texts.find_one({'texts':'mat'})   
     if len(text['textlist'])>0:
       if 'ципра' in m.text.lower():
@@ -79,7 +80,13 @@ def handlerr(m):
         else:
             bot.send_chat_action(m.chat.id, 'typing')
             t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(tex)])
-            t.start()    
+            t.start()   
+      else:
+          x=random.randint(1,100)
+          if x<=20:
+            bot.send_chat_action(m.chat.id, 'typing')
+            t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(textstotalk['textlist'])])
+            t.start()
             
     else:
        bot.send_chat_action(m.chat.id, 'typing')
