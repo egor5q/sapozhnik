@@ -32,7 +32,7 @@ texts=db.texts
 #      'Сука ебал рот блять','Ты долбоеб или как?','Ебло','Сука']
 
 
-tex=['Чё надо?','Что "Сапожник"? Нахуй идите!']
+tex=['Чё надо?','Что "Ципра"? Нахуй идите!']
 
 #for ids in textss:
 #    texts.update_one({'texts':'mat'},{'$push':{'textlist':ids}})
@@ -69,7 +69,7 @@ def delword(m):
 def handlerr(m):
     text=texts.find_one({'texts':'mat'})   
     if len(text['textlist'])>0:
-      if 'сапожник' in m.text.lower():
+      if 'ципра' in m.text.lower():
         if 'скажи' in m.text.lower():
             bot.send_chat_action(m.chat.id, 'typing')
             t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(text['textlist'])])
