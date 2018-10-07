@@ -95,20 +95,9 @@ def handlerr(m):
     text=texts.find_one({'texts':'mat'})   
     if len(text['textlist'])>0:
       if 'ципра' in m.text.lower():
-        if 'скажи' in m.text.lower():
-          if m.forward_from==None:
             bot.send_chat_action(m.chat.id, 'typing')
             t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(text['textlist'])])
-            t.start()
-          else:
-            x=random.randint(1,100)
-            if x<=2:
-                bot.send_message(m.chat.id, 'Заебали блять. Не реагирую я на форварды!')
-        else:
-            if m.forward_from==None:
-                bot.send_chat_action(m.chat.id, 'typing')
-                t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(tex)])
-                t.start()   
+            t.start()   
       else:
         if m.forward_from==None:
           x=random.randint(1,100)
