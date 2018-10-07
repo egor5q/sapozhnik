@@ -106,7 +106,7 @@ def handlerr(m):
           x=random.randint(1,100)
           if x<=20:
             bot.send_chat_action(m.chat.id, 'typing')
-            t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(textstotalk['textlist'])])
+            t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(txtotalk['textlist'])])
             t.start()
           y=random.randint(1,100)
           if y<=1:
