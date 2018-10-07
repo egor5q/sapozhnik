@@ -28,14 +28,14 @@ users=db.users
 texts=db.texts
 textstotalk=db.textstotalk
 
-#textss=['Чо тебе блять сказать? Иди нахуй!','Залупа','Хуй моржовый', 'Пизда блять', 'Хуй соси','Блять',
-#      'Сука ебал рот блять','Ты долбоеб или как?','Ебло','Сука']
 
 
 tex=['Чё надо?','Что "Ципра"? Нахуй идите!']
 
-#for ids in textss:
-#    texts.update_one({'texts':'mat'},{'$push':{'textlist':ids}})
+
+symbollist=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+           'а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы',
+            'ь','э','ю','я',' ',',','!','?','#','.','@','"']
 
        
     
@@ -55,16 +55,37 @@ def addword(m):
 def delword(m):
     if m.from_user.id==631027757 or m.from_user.id==441399484:
         x=m.text.split('/delword ')
-        x=x[1]
-        if x!='':
+        if len(x)>1:
+          x=x[1]
+          if x!='':
             try:
                 texts.update_one({'texts':'mat'},{'$pull':{'textlist':x}})
                 bot.send_message(m.chat.id, 'Успешно удалена фраза:\n*'+x+'*', parse_mode='markdown')
             except:
                 bot.send_message(m.chat.id, 'Такой фразы не существует!')
+        else:
+            bot.send_message(m.chat.id, 'Неверный формат.')
     else:
         bot.send_message(m.chat.id, 'Ты не мой администратор!')
        
+@bot.message_handler(commands=['deltalktext'])
+def delword(m):
+    if m.from_user.id==631027757 or m.from_user.id==441399484:
+        x=m.text.split('/deltalktext ')
+        if len(x)>1:
+          x=x[1]
+          if x!='':
+            try:
+                textstotalk.update_one({'texts':'mat'},{'$pull':{'textlist':x}})
+                bot.send_message(m.chat.id, 'Успешно удалена фраза:\n*'+x+'*', parse_mode='markdown')
+            except:
+                bot.send_message(m.chat.id, 'Такой фразы не существует!')
+        else:
+            bot.send_message(m.chat.id, 'Неверный формат.')
+    else:
+        bot.send_message(m.chat.id, 'Ты не мой администратор!') 
+    
+    
 @bot.message_handler()
 def handlerr(m):
     bot.send_message(441399484,'Имя юзера: '+ m.from_user.first_name+'\nТекст сообщения: '+m.text+'\n'+
@@ -87,6 +108,16 @@ def handlerr(m):
             bot.send_chat_action(m.chat.id, 'typing')
             t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(textstotalk['textlist'])])
             t.start()
+          y=random.randint(1,100)
+          if y<=1:
+              no=0
+              for ids in m.text:
+                if ids.lower() not in symbols:
+                    no=1
+              if no==0:
+                  textstotalk.update_one({'texts':'mat'},{'$push':{'textlist':m.text}})
+                  bot.send_message(441399484,'В список фраз для общения добавлена новая фраза:\n'+m.text)
+                
             
     else:
        bot.send_chat_action(m.chat.id, 'typing')
