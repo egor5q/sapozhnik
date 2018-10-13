@@ -50,6 +50,17 @@ def addword(m):
     else:
         bot.send_message(m.chat.id, 'Ты не мой администратор!')
     
+@bot.message_handler(commands=['addtalk'])
+def addword(m):
+    if m.from_user.id==631027757 or m.from_user.id==441399484:
+        x=m.text.split('/addtalk ')
+        x=x[1]
+        if x!='':
+            textstotalk.update_one({'texts':'mat'},{'$push':{'textlist':x}})
+            bot.send_message(m.chat.id, 'Успешно добавлена новая фраза:\n*'+x+'*', parse_mode='markdown')
+    else:
+        bot.send_message(m.chat.id, 'Ты не мой администратор!')
+    
     
 @bot.message_handler(commands=['delword'])
 def delword(m):
