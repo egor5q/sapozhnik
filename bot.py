@@ -106,7 +106,7 @@ def handlerr(m):
             t=threading.Timer(3, sendm, args=[m.chat.id, random.choice(txtotalk['textlist'])])
             t.start()
           y=random.randint(1,100)
-          if y<=1:
+          if y<=10:
               no=0
               for ids in m.text:
                 if ids.lower() not in symbols:
